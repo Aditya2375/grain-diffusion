@@ -19,6 +19,6 @@ def trajectory(seed,seedb,mix,label,count,scale,m):
   a=m['alpha_bar'][t];b=m['alpha_bar'][grid[i+1]] if i+1<count else 1;clean=np.clip((x-np.sqrt(1-a)*eps)/np.sqrt(a),-1,1);corrected=(x-np.sqrt(a)*clean)/np.sqrt(1-a);x=np.sqrt(b)*clean+np.sqrt(1-b)*corrected;frames.append(x.tolist())
  return frames
 if __name__=='__main__':
- m=json.loads(Path('guided-model.json').read_text());out=[]
+ m=json.loads(Path('1-guided-model.json').read_text());out=[]
  for seed,seedb,mix,label,count,scale in [(42,917,0,3,16,3),(123,917,.5,7,8,0),(42,917,1,0,32,1),(5,8,.25,9,64,5)]:out.append(dict(seed=seed,seedB=seedb,mix=mix,label=label,count=count,scale=scale,frames=trajectory(seed,seedb,mix,label,count,scale,m)))
- Path('sampling-fixtures.json').write_text(json.dumps(out,separators=(',',':')))
+ Path('2-sampling-fixtures.json').write_text(json.dumps(out,separators=(',',':')))
