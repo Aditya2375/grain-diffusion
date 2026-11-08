@@ -6,7 +6,7 @@ from torch import nn
 from train_guided import Guided
 
 def main():
- torch.set_num_threads(2);base=json.loads(Path('2-model.json').read_text());new=json.loads(Path('guided-model.json').read_text());nets=[]
+ torch.set_num_threads(2);base=json.loads(Path('2-model.json').read_text());new=json.loads(Path('1-guided-model.json').read_text());nets=[]
  for m in [base,new]:
   n=Guided();n.load_state_dict({k:torch.tensor(v) for k,v in m['weights'].items()});n.eval();nets.append(n)
  raw=gzip.decompress(Path('data/train-images-idx3-ubyte.gz').read_bytes());lab=gzip.decompress(Path('data/train-labels-idx1-ubyte.gz').read_bytes());x=torch.tensor(np.frombuffer(raw[16:],np.uint8).copy().reshape(-1,1,28,28)).float()/255;x=nn.functional.avg_pool2d(x,2).reshape(-1,196)*2-1;y=torch.tensor(np.frombuffer(lab[8:],np.uint8).copy()).long();g=torch.Generator().manual_seed(1281);ids=torch.randint(5000,(2048,),generator=g)+55000;t=torch.randint(64,(2048,),generator=g);noise=torch.randn(2048,196,generator=g);a=torch.tensor(new['alpha_bar'],dtype=torch.float32)[t,None];xx=a.sqrt()*x[ids]+(1-a).sqrt()*noise
