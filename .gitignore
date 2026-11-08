@@ -1,6 +1,7 @@
-data/
 __pycache__/
 *.pyc
-train.log
-samples.json
-PLAN.md
+*.npz
+*.pt
+*.log
+data/
+node_modules/
