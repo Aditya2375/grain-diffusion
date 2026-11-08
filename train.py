@@ -26,5 +26,5 @@ def main():
   for label,t in [(0,63),(3,24),(9,0)]:
    a=torch.linspace(-1,1,196)[None,:];out=net(a,torch.tensor([t]),torch.tensor([label]))[0].tolist();fixtures.append(dict(input=a[0].tolist(),t=t,label=label,output=out))
  payload=dict(version=1,config=dict(size=14,steps=64,hidden=256,embedding=16,classes=10),weights={k:v.tolist() for k,v in net.state_dict().items()},beta=beta.tolist(),alpha_bar=abar.tolist(),training=dict(seed=431,updates=30000,batch=128,learning_rate=.0007,train_images=55000,validation_images=5000,history=history,parameters=sum(p.numel() for p in net.parameters()),sha256={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in r.glob('*.gz')}),fixtures=fixtures)
- Path('1-model.json').write_text(json.dumps(payload,separators=(',',':')));print('done',flush=True)
+ Path('2-model.json').write_text(json.dumps(payload,separators=(',',':')));print('done',flush=True)
 if __name__=='__main__':main()
