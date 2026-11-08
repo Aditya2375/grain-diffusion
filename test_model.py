@@ -5,7 +5,7 @@ from train import Net,schedule
 class Checks(unittest.TestCase):
  @classmethod
  def setUpClass(cls):
-  torch.set_num_threads(2);cls.m=json.loads(Path('1-model.json').read_text());cls.net=Net();cls.net.load_state_dict({k:torch.tensor(v) for k,v in cls.m['weights'].items()});cls.net.eval()
+  torch.set_num_threads(2);cls.m=json.loads(Path('2-model.json').read_text());cls.net=Net();cls.net.load_state_dict({k:torch.tensor(v) for k,v in cls.m['weights'].items()});cls.net.eval()
  def test_fixtures(self):
   with torch.no_grad():
    for f in self.m['fixtures']:
