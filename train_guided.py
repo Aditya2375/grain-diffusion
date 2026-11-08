@@ -24,5 +24,5 @@ def main():
  with torch.no_grad():
   for label,t in [(-1,63),(0,31),(3,15),(9,0)]:
    v=torch.linspace(-1,1,196)[None];fixtures.append(dict(input=v[0].tolist(),t=t,label=label,output=net(v,torch.tensor([t]),torch.tensor([label]))[0].tolist()))
- payload['fixtures']=fixtures;Path('guided-model.json').write_text(json.dumps(payload,separators=(',',':')))
+ payload['fixtures']=fixtures;Path('1-guided-model.json').write_text(json.dumps(payload,separators=(',',':')))
 if __name__=='__main__':main()
