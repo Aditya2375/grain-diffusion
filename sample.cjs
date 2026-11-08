@@ -1,0 +1,1 @@
+const fs=require('fs'),m=require('./2-model.json'),{RNG,step}=require('./engine.js');let samples=[];for(let label=0;label<10;label++){let r=new RNG(42),x=Array.from({length:196},()=>r.normal());for(let t=63;t>=0;t--)x=step(x,t,label,m,r);samples.push(x)}fs.writeFileSync('samples.json',JSON.stringify(samples));
